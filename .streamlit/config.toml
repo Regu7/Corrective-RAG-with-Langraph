@@ -1,0 +1,6 @@
+[theme]
+base="dark"
+backgroundColor="#000000" # Black
+secondaryBackgroundColor="#1E1E1E" # Dark grey for secondary elements
+textColor="#FFFFFF" # White text
+font="sans serif"

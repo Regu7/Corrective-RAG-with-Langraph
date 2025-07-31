@@ -1,0 +1,10 @@
+langchain_communitytiktoken
+langchain-openai
+langchainhub
+chromadb
+langchain
+langgraph
+tavily-python
+streamlit
+python-dotenv
+pypdf
