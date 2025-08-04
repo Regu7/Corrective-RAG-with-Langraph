@@ -1,4 +1,4 @@
-langchain_communitytiktoken
+langchain_community
 langchain-openai
 langchainhub
 chromadb

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adaptive_rag
+  labels:
+    app: adaptive_rag
+spec:
+  replicas: 1 # Start with 1 replica, scale as needed
+  selector:
+    matchLabels:
+      app: adaptive_rag
+  template:
+    metadata:
+      labels:
+        app: adaptive_rag
+    spec:
+      containers:
+      - name: adaptive_rag
+        image: YOUR_ECR_REPO_URL/my-streamlit-app:latest # Replace with your ECR image URL
+        ports:
+        - containerPort: 8501 # Port Streamlit listens on
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-keys-secret # Name of your Kubernetes Secret
+              key: openai-api-key # Key within the Secret
+        - name: TAVILY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-keys-secret # Name of your Kubernetes Secret
+              key: tavily-api-key # Key within the Secret
+        volumeMounts:
+        - name: chroma-pv-storage
+          mountPath: /app/chroma_db_uploaded # Mount the persistent volume here
+      volumes:
+      - name: chroma-pv-storage
+        persistentVolumeClaim:
+          claimName: chroma-pvc # Name of your PersistentVolumeClaim
+      # Optional: Add resource limits and requests for better resource management
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1Gi"
+          cpu: "500m"
