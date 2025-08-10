@@ -5,7 +5,7 @@ metadata:
   labels:
     app: adaptive-rag-app
 spec:
-  replicas: 1
+  replicas: 1 # Start with 1 replica for initial testing
   selector:
     matchLabels:
       app: adaptive-rag-app
@@ -32,15 +32,15 @@ spec:
               key: tavily-api-key
         volumeMounts:
         - name: chroma-pv-storage
-          mountPath: /app/chroma_db_uploaded
+          mountPath: /app/chroma_db_uploaded # Mount the persistent volume at this path
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
       volumes:
       - name: chroma-pv-storage
         persistentVolumeClaim:
-          claimName: adaptive-rag-pvc
-      resources:
-        requests:
-          memory: "512Mi"
-          cpu: "250m"
-        limits:
-          memory: "1Gi"
-          cpu: "500m"
+          claimName: adaptive-rag-pvc # Name of your PersistentVolumeClaim
