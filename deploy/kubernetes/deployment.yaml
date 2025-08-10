@@ -15,8 +15,8 @@ spec:
         app: adaptive-rag-app
     spec:
       containers:
-      - name: adaptive-rag-app
-        image: YOUR_ECR_REPO_URL/my-streamlit-app:latest # Replace with your ECR image URL
+      - name: adaptive-rag-app 
+        image: ECR_REPO_URL/adaptive-rag-app
         ports:
         - containerPort: 8501
         env:

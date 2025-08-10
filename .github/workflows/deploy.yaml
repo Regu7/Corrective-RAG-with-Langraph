@@ -28,7 +28,7 @@ jobs:
         # Store these as GitHub Secrets for security.
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -44,15 +44,12 @@ jobs:
 
     - name: Update Kubernetes deployment image
       run: |
-        # Use 'YOUR_ECR_REPO_URL/my-streamlit-app:latest' as a placeholder in the
+        # Use 'ECR_REPO_URL/adaptive-rag-app' as a placeholder in the
         # deployment.yaml file. This command replaces it with the actual ECR URL and tag.
-        sed -i "s|YOUR_ECR_REPO_URL/my-streamlit-app:latest|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" kubernetes/deployment.yaml
+        sed -i "s|ECR_REPO_URL/adaptive-rag-app|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" kubernetes/deployment.yaml
 
     - name: Configure kubectl for EKS
       run: |
-        # This is the most critical step for resolving your error.
-        # It updates your kubeconfig with a temporary token from the AWS CLI,
-        # which authenticates against the EKS API server.
         aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
 
     - name: Deploy to EKS
