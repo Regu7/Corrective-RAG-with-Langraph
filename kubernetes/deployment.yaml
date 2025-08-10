@@ -14,18 +14,21 @@ spec:
       labels:
         app: adaptive-rag-app
     spec:
+      # Target x86 instances
+      nodeSelector:
+        node.kubernetes.io/instance-type: t3.micro
       containers:
       - image: ECR_REPO_URL/adaptive-rag-app
         name: adaptive-rag-app
         ports:
         - containerPort: 8501
-        resources:  # Moved inside the container spec and properly indented
+        resources:
           requests:
-            memory: "512Mi"
-            cpu: "250m"
+            memory: "128Mi"  # Reduced for t3.micro (1GB RAM)
+            cpu: "50m"       # Reduced for t3.micro (2 vCPU)
           limits:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "256Mi"  # Conservative limit
+            cpu: "100m"
         env:
         - name: OPENAI_API_KEY
           valueFrom:
