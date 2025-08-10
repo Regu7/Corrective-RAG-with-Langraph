@@ -15,7 +15,7 @@ spec:
         app: adaptive-rag-app
     spec:
       containers:
-      - image: 872869206989.dkr.ecr.us-east-2.amazonaws.com/adaptive_rag:f4b8d3031f91edea629028cc1494506f8fc4b9d5
+      - image: ECR_REPO_URL/adaptive-rag-app
         name: adaptive-rag-app
         ports:
         - containerPort: 8501

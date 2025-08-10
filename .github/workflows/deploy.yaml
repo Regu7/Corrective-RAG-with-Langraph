@@ -42,10 +42,17 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Update Kubernetes deployment image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
       run: |
         # Use 'ECR_REPO_URL/adaptive-rag-app' as a placeholder in the
         # deployment.yaml file. This command replaces it with the actual ECR URL and tag.
         sed -i "s|ECR_REPO_URL/adaptive-rag-app|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" kubernetes/deployment.yaml
+        
+        # Debug: Show the updated deployment.yaml to verify the replacement worked
+        echo "Updated deployment.yaml:"
+        cat kubernetes/deployment.yaml
 
     - name: Configure kubectl for EKS
       run: |
