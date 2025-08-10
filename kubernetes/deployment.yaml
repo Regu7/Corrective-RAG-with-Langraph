@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,7 +16,7 @@ spec:
     spec:
       containers:
         name: adaptive-rag-app
-        image: ECR_REPO_URL/adaptive-rag-app
+        image: adaptive-rag-app
         ports:
           containerPort: 8501
         env:
