@@ -46,7 +46,7 @@ jobs:
       run: |
         # Use 'ECR_REPO_URL/adaptive-rag-app' as a placeholder in the
         # deployment.yaml file. This command replaces it with the actual ECR URL and tag.
-        sed -i "s|ECR_REPO_URL/adaptive-rag-app|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" kubernetes/deployment.yaml
+        sed -i "s|ECR_REPO_URL/adaptive-rag-app|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deploy/kubernetes/deployment.yaml
 
     - name: Configure kubectl for EKS
       run: |
