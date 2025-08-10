@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: us-east-1 #  AWS region
   ECR_REPOSITORY: adaptive_rag #  ECR repository name
-  EKS_CLUSTER_NAME: adaptive_RAG # Your EKS cluster name
+  EKS_CLUSTER_NAME: adaptive-rag-app
 
 jobs:
   build-and-deploy:
