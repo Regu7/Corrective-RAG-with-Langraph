@@ -1,3 +1,49 @@
-adaptive_RAG kubr
-
-
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: prometheus-deployment
+  name: prometheus
+  #namespace: prometheus
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - image: prom/prometheus:master
+        name: prometheus
+        command:
+        - "/bin/prometheus"
+        args:
+        - "-config.file=/etc/prometheus/prometheus.yml"
+        - "-storage.local.path=/prometheus"
+        - "-storage.local.retention=24h"
+        ports:
+        - containerPort: 9090
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/prometheus"
+          name: data
+        - mountPath: "/etc/prometheus"
+          name: config-volume
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 2500Mi
+      volumes:
+      - name: data
+        hostPath:
+          path: /data/prometheus
+      - name: config-volume
+        configMap:
+          name: prometheus
+      nodeSelector: westporch-kubeminion-1
+        kubernetes.io/hostname: 10.0.24.52
+---
