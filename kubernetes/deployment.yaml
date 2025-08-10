@@ -15,32 +15,32 @@ spec:
         app: adaptive-rag-app
     spec:
       containers:
-        name: adaptive-rag-app
-        image: adaptive-rag-app
+      - name: adaptive-rag-app
+        image: ECR_REPO_URL/adaptive-rag-app
         ports:
-          containerPort: 8501
+        - containerPort: 8501
         env:
-          - name: OPENAI_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: adaptive-rag-secret
-                key: openai-api-key
-          - name: TAVILY_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: adaptive-rag-secret
-                key: tavily-api-key
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: adaptive-rag-secret
+              key: openai-api-key
+        - name: TAVILY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: adaptive-rag-secret
+              key: tavily-api-key
         volumeMounts:
-          - name: chroma-pv-storage
-            mountPath: /app/chroma_db_uploaded
-        resources:
-          requests:
-            memory: 512Mi
-            cpu: 250m
-          limits:
-            memory: 1Gi
-            cpu: 500m
-      volumes:
         - name: chroma-pv-storage
-          persistentVolumeClaim:
-            claimName: adaptive-rag-pvc
+          mountPath: /app/chroma_db_uploaded
+      volumes:
+      - name: chroma-pv-storage
+        persistentVolumeClaim:
+          claimName: adaptive-rag-pvc
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1Gi"
+          cpu: "500m"
