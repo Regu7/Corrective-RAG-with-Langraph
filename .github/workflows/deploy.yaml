@@ -6,7 +6,7 @@ on:
       - main # Trigger on pushes to the main branch
 
 env:
-  AWS_REGION: us-east-1 #  AWS region
+  AWS_REGION: us-east-2 #  AWS region
   ECR_REPOSITORY: adaptive_rag #  ECR repository name
   EKS_CLUSTER_NAME: adaptive-rag-app
 
@@ -14,7 +14,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write 
       contents: read
 
     steps:
