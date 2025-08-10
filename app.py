@@ -35,13 +35,12 @@ load_dotenv()
 # Set API keys from environment variables.
 # In a real deployment, ensure these are properly set as environment variables
 # in your hosting environment.
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", "your_openai_api_key_here")
-os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY", "your_tavily_api_key_here")
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY")
 
 # Check if API keys are available
 if (
     not os.environ["OPENAI_API_KEY"]
-    or os.environ["OPENAI_API_KEY"] == "your_openai_api_key_here"
 ):
     st.error(
         "OPENAI_API_KEY not found. Please set it in your .env file or as an environment variable."
@@ -49,7 +48,6 @@ if (
     st.stop()
 if (
     not os.environ["TAVILY_API_KEY"]
-    or os.environ["TAVILY_API_KEY"] == "your_tavily_api_key_here"
 ):
     st.error(
         "TAVILY_API_KEY not found. Please set it in your .env file or as an environment variable."

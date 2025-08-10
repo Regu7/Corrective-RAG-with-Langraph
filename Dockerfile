@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of your application code
 COPY .streamlit .
-COPY .env .
+#COPY .env .
 COPY app.py .
 
 # ADD chroma_db_uploaded/ .
