@@ -19,6 +19,13 @@ spec:
         name: adaptive-rag-app
         ports:
         - containerPort: 8501
+        resources:  # Moved inside the container spec and properly indented
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
         env:
         - name: OPENAI_API_KEY
           valueFrom:
@@ -37,10 +44,3 @@ spec:
       - name: chroma-pv-storage
         persistentVolumeClaim:
           claimName: adaptive-rag-pvc
-      resources:
-        requests:
-          memory: "512Mi"
-          cpu: "250m"
-        limits:
-          memory: "1Gi"
-          cpu: "500m"
