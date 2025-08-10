@@ -5,7 +5,6 @@ from typing import Dict, List
 
 import streamlit as st
 from dotenv import load_dotenv
-
 load_dotenv()
 
 import os
@@ -14,7 +13,9 @@ from pathlib import Path
 from typing import Dict, List
 
 import streamlit as st
-from dotenv import load_dotenv
+
+os.environ["USER_AGENT"] = "myagent"
+
 from langchain import hub
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -569,5 +570,3 @@ if prompt := st.chat_input("Ask me a question!"):
                 "documents": final_documents,
             }
         )
-
-
