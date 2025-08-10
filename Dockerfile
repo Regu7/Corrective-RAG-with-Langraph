@@ -16,7 +16,7 @@ COPY .streamlit .
 COPY .env .
 COPY app.py .
 
-ADD chroma_db_uploaded/ .
+# ADD chroma_db_uploaded/ .
 
 # Expose the port Streamlit runs on
 EXPOSE 8501

@@ -1,4 +1,4 @@
-name: Deploy Streamlit App to EKS
+name: Deploy Adaptive RAG App to EKS
 
 on:
   push:
